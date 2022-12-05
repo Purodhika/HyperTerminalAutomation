@@ -59,7 +59,6 @@ namespace PuTTyAutomation_2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
             }
             sport.Close();
         }
