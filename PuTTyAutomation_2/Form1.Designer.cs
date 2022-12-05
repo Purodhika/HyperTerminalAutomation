@@ -32,6 +32,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.runHT = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -71,11 +72,22 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // runHT
+            // 
+            this.runHT.Location = new System.Drawing.Point(316, 186);
+            this.runHT.Name = "runHT";
+            this.runHT.Size = new System.Drawing.Size(130, 40);
+            this.runHT.TabIndex = 4;
+            this.runHT.Text = "Run HyperTerminal";
+            this.runHT.UseVisualStyleBackColor = true;
+            this.runHT.Click += new System.EventHandler(this.runHT_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(749, 238);
+            this.Controls.Add(this.runHT);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox1);
@@ -93,6 +105,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button runHT;
     }
 }
 

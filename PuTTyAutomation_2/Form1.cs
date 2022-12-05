@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using System.Drawing.Text;
+using System.Diagnostics;
 
 namespace PuTTyAutomation_2
 {
@@ -22,7 +23,7 @@ namespace PuTTyAutomation_2
         public Form1()
         {
             InitializeComponent();
-           //Console.WriteLine("yoyo");
+            //Console.WriteLine("yoyo");
         }
 
         System.IO.Ports.SerialPort sport;
@@ -42,21 +43,9 @@ namespace PuTTyAutomation_2
             {
                 sport.Open();
 
-                //Passwords();
-                sport.WriteLine("cisco");
-                SendKeys.Send("{ENTER}");
-                sport.WriteLine("en");
-                SendKeys.Send( "{ENTER}");
-                sport.WriteLine("class");
-                SendKeys.Send("{ENTER}");
-                //SendKeys.SendWait("class{ENTER}");
-                // sport.Write("class");
-               // SendKeys.Send("{ENTER}");
-                //sport.WriteLine("en");
-               // Passwords();
-
+                Passwords();
                 message = sport.ReadLine();
-                
+
                 if (stringComparer.Equals("% Bad secrets", message) || (stringComparer.Equals("% Bad passwords", message)))
                 {
                     MessageBox.Show("Must Reset the password");
@@ -70,7 +59,7 @@ namespace PuTTyAutomation_2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                
+
             }
             sport.Close();
         }
@@ -86,14 +75,18 @@ namespace PuTTyAutomation_2
             sport.WriteLine("\nreload");
             Thread.Sleep(1000);
             SendKeys.SendWait("{ENTER}");
-           // SendKeys.Send("{ENTER}");
+            // SendKeys.Send("{ENTER}");
         }
 
         private void Passwords()
         {
-            SendKeys.Send("class{ENTER}");
-            SendKeys.Send("cisco{ENTER}");
-            
+            sport.WriteLine("cisco");
+            SendKeys.Send("{ENTER}");
+            sport.WriteLine("en");
+            SendKeys.Send("{ENTER}");
+            sport.WriteLine("class");
+            SendKeys.Send("{ENTER}");
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -109,36 +102,36 @@ namespace PuTTyAutomation_2
             UnknownPwdRouterReset();
             sport.Close();
         }
-            private void UnknownPwdRouterReset()
+        private void UnknownPwdRouterReset()
+        {
+            // planning on doing the loop for these breaks. 
+            //looping done
+            for (int i = 0; i <= 10; i++)
             {
-                // planning on doing the loop for these breaks. 
-                //looping done
-                for (int i = 0; i <= 10; i++)
-                {
-                    SendKeys.SendWait("{BREAK}");
-                }
-                sport.WriteLine("\nconfreg 0x2142");
-                sport.WriteLine("\nreset");
-                Thread.Sleep(360000);
-                sport.WriteLine("en");
-                SendKeys.Send("ENTER");
-                sport.WriteLine("config t");
-                SendKeys.Send("ENTER");
-                sport.WriteLine("config-register 0x2102");
-                SendKeys.Send("ENTER");
-                sport.WriteLine("exit");
-                SendKeys.Send("ENTER");
-                sport.WriteLine("wr er");
-                SendKeys.Send("ENTER");
-                Thread.Sleep(1000);
-                sport.WriteLine("\nwr memory");
-                SendKeys.Send("ENTER");
-                Thread.Sleep(1000);
-                sport.WriteLine("\nreload");
-                SendKeys.Send("ENTER");
-
-               
+                SendKeys.SendWait("{BREAK}");
             }
+            sport.WriteLine("\nconfreg 0x2142");
+            sport.WriteLine("\nreset");
+            Thread.Sleep(360000);
+            sport.WriteLine("en");
+            SendKeys.Send("ENTER");
+            sport.WriteLine("config t");
+            SendKeys.Send("ENTER");
+            sport.WriteLine("config-register 0x2102");
+            SendKeys.Send("ENTER");
+            sport.WriteLine("exit");
+            SendKeys.Send("ENTER");
+            sport.WriteLine("wr er");
+            SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
+            sport.WriteLine("\nwr memory");
+            SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
+            sport.WriteLine("\nreload");
+            SendKeys.Send("ENTER");
+
+
+        }
 
 
         private void button3_Click(object sender, EventArgs e)
@@ -161,24 +154,104 @@ namespace PuTTyAutomation_2
             SendKeys.Send("ENTER");
             sport.WriteLine("dir flash:");
             SendKeys.Send("ENTER");
-            //sport.Write("delete flash:config.text");
-            //SendKeys.Send("ENTER");
-            //sport.Write("y");
-            //SendKeys.Send("ENTER");
-            sport.Write("delete flash:multiple-fs");
+            sport.Write("delete flash:config.text");
             SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
             sport.Write("y");
             SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
+            sport.Write("delete flash:multiple-fs");
+            SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
+            sport.Write("y");
+            SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
+            sport.Write("delete flash:config.text.renamed");
+            SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
+            sport.Write("y");
+            SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
+            sport.Write("delete flash:vlan.dat");
+            SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
+            sport.Write("y");
+            SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
+            sport.Write("delete flash:private-config.text");
+            SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
+            sport.Write("y");
+            SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
+            sport.Write("delete flash:private-config.text.renamed");
+            SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
+            sport.Write("y");
+            SendKeys.Send("ENTER");
+            Thread.Sleep(1000);
             sport.Write("reset");
             sport.Write("y");
             SendKeys.Send("ENTER");
-           // Thread.Sleep(1000);
-            /*sport.WriteLine("dir flash:");
-            SendKeys.Send("ENTER");
-            sport.WriteLine("boot");
-            SendKeys.Send("ENTER"); */
 
-            // sport.Close(); 
-        } 
-    } 
+        }
+
+        private void runHT_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                //lblStatus.Text = "Now running HyperTerminal...";
+
+                ProcessStartInfo filepath = new ProcessStartInfo("hypertrm.exe");
+                Process process = new Process();
+                process.StartInfo = filepath;
+                process.Start();
+                Thread.Sleep(2000);
+                runHyperTerminal();
+            }
+            catch (Exception x)
+            {
+                ProcessStartInfo filepath = new ProcessStartInfo("hypertrm.exe");
+                Process process = new Process();
+                if (!process.Start())
+                {
+                    filepath = new ProcessStartInfo("E:\\Hypertrm\\hypertrm.exe");
+                    process.StartInfo = filepath;
+                    if (process.Start() == true)
+                    {
+                        runHyperTerminal();
+                    }
+                };
+                DialogResult result = MessageBox.Show("hypertrm.exe not found.\nError: " + x.Message, "Error",
+              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    
+
+
+          private void runHyperTerminal()
+            {
+                Thread.Sleep(1000);
+               
+                SendKeys.SendWait("Connection 1{ENTER}");
+          
+
+                SendKeys.SendWait("{DOWN}");
+                SendKeys.SendWait("{ENTER}");
+                SendKeys.SendWait("%r");
+                SendKeys.SendWait("{ENTER}");
+
+                Thread.Sleep(1000);
+                SendKeys.SendWait("{ENTER}");
+              
+                Thread.Sleep(1000);
+                SendKeys.SendWait("%r");
+                Thread.Sleep(1000);
+               
+
+          }
+    }
 }
+ 
+
