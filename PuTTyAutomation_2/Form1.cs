@@ -252,6 +252,61 @@ namespace PuTTyAutomation_2
                
 
           }
+
+        private void runPutty_click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                //lblStatus.Text = "Now running HyperTerminal...";
+
+                ProcessStartInfo filepath = new ProcessStartInfo("putty.exe");
+                Process process = new Process();
+                process.StartInfo = filepath;
+                process.Start();
+                Thread.Sleep(2000);
+                RunPuTTy();
+            }
+            catch (Exception x)
+            {
+                ProcessStartInfo filepath = new ProcessStartInfo("putty.exe");
+                Process process = new Process();
+                if (!process.Start())
+                {
+                    // filepath = new ProcessStartInfo("E:\\Hypertrm\\hypertrm.exe");
+                    filepath = new ProcessStartInfo("C:\\Program Files\\PuTTY\\putty.exe");
+                    process.StartInfo = filepath;
+                    if (process.Start() == true)
+                    {
+                        RunPuTTy();
+                    }
+                };
+                DialogResult result = MessageBox.Show("hypertrm.exe not found.\nError: " + x.Message, "Error",
+              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+           
+        }
+
+        private void RunPuTTy()
+        {
+            SendKeys.SendWait("{TAB}");
+            SendKeys.SendWait("{TAB}");
+            SendKeys.SendWait("{RIGHT}");
+
+            for (int i = 0; i <= 12; i++)
+            {
+                SendKeys.SendWait("{TAB}");
+            }
+
+            SendKeys.SendWait("{BACKSPACE}");
+            Thread.Sleep(1000);
+            SendKeys.SendWait("COM8{ENTER}");
+            Thread.Sleep(1000);
+
+
+        }
     }
 }
  
