@@ -34,7 +34,7 @@ namespace PuTTyAutomation_2
         private void button1_Click(object sender, EventArgs e)
         {
             sport = new System.IO.Ports.SerialPort(textBox1.Text, 9600,
-                                                                                System.IO.Ports.Parity.None,
+                                                                              System.IO.Ports.Parity.None,
                                                                                 8,
                                                                                 System.IO.Ports.StopBits.One);
 
@@ -237,6 +237,7 @@ namespace PuTTyAutomation_2
                 SendKeys.SendWait("Connection 1{ENTER}");
           
 
+                SendKeys.SendWait("{DOWN}");
                 SendKeys.SendWait("{DOWN}");
                 SendKeys.SendWait("{ENTER}");
                 SendKeys.SendWait("%r");

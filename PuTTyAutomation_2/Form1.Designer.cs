@@ -76,7 +76,7 @@
             // 
             this.runHT.Location = new System.Drawing.Point(316, 186);
             this.runHT.Name = "runHT";
-            this.runHT.Size = new System.Drawing.Size(130, 40);
+            this.runHT.Size = new System.Drawing.Size(130, 74);
             this.runHT.TabIndex = 4;
             this.runHT.Text = "Run HyperTerminal";
             this.runHT.UseVisualStyleBackColor = true;
@@ -86,7 +86,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(749, 238);
+            this.ClientSize = new System.Drawing.Size(755, 292);
             this.Controls.Add(this.runHT);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
