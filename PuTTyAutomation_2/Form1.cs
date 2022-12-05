@@ -281,7 +281,7 @@ namespace PuTTyAutomation_2
                         RunPuTTy();
                     }
                 };
-                DialogResult result = MessageBox.Show("hypertrm.exe not found.\nError: " + x.Message, "Error",
+                DialogResult result = MessageBox.Show("putty.exe not found.\nError: " + x.Message, "Error",
               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -304,7 +304,7 @@ namespace PuTTyAutomation_2
             Thread.Sleep(1000);
             SendKeys.SendWait("COM8{ENTER}");
             Thread.Sleep(1000);
-
+            SendKeys.SendWait("{ENTER}");
 
         }
     }
